@@ -17,7 +17,7 @@ namespace DumpDiag.Console
         [Option]
         public string ProcessDump { get; set; }
 
-        [Option]
+        [Option(CommandOptionType.MultipleValue)]
         public string[] Analyzers { get; set; }
 
         private void OnExecute()
@@ -25,12 +25,23 @@ namespace DumpDiag.Console
             var context = AnalysisContext.FromProcessDump(ProcessDump, DAC);
             var analysisSession = new AnalysisSession(context);
             System.Console.CancelKeyPress += (sender, args) => analysisSession.Stop();
+
             AnalyzerFactory factory = new AnalyzerFactory();
             foreach (var analyzerName in Analyzers)
             {
                 var analyzer = factory.CreateAnalyzer(analyzerName);
                 analyzer.Run(analysisSession);
             }
+        }
+    }
+
+    internal class ModulesAnalyzer : IDumpAnalyzer
+    {
+        public void Run(AnalysisSession analysisSession)
+        {
+            analysisSession.Reporter.Table("Modules", analysisSession.Context.Runtime.Modules.ToTable(
+                "Name", "Dll",
+                module => module.Name, module => module.FileName));
         }
     }
 
@@ -69,8 +80,9 @@ namespace DumpDiag.Console
             System.Console.WriteLine(progressMessage);
         }
 
-        public void Table(IEnumerable<IEnumerable<string>> table)
+        public void Table(string name, IEnumerable<IEnumerable<string>> table)
         {
+            System.Console.WriteLine("--------------- " + name);
             var columnSizes = new List<int>();
             foreach (var row in table)
             {
@@ -109,7 +121,7 @@ namespace DumpDiag.Console
     {
         void Info(string message);
         void Progress(string progressMessage);
-        void Table(IEnumerable<IEnumerable<string>> table);
+        void Table(string name, IEnumerable<IEnumerable<string>> table);
     }
 
     internal class AnalyzerFactory
@@ -149,26 +161,6 @@ namespace DumpDiag.Console
         }
     }
 
-    internal class ThreadPoolAnalyzer: IDumpAnalyzer
-    {
-        public void Run(AnalysisSession analysisSession)
-        {
-            var pool = analysisSession.Context.Runtime.ThreadPool;
-            analysisSession.Reporter.Table(
-                new []
-                {
-                    new [] { nameof(pool.CpuUtilization), pool.CpuUtilization.ToString() },
-                    new [] { nameof(pool.TotalThreads), pool.TotalThreads.ToString() },
-                    new [] { nameof(pool.RunningThreads), pool.RunningThreads.ToString() }
-                });
-        }
-    }
-
-    internal interface IDumpAnalyzer
-    {
-        void Run(AnalysisSession analysisSession);
-    }
-
     internal class AnalysisContext
     {
         public DataTarget DataTarget { get; }
@@ -185,7 +177,6 @@ namespace DumpDiag.Console
             var dataTarget = DataTarget.LoadCrashDump(processDump);
             ClrInfo runtimeInfo = dataTarget.ClrVersions[0];  // just using the first runtime
             ClrRuntime runtime = runtimeInfo.CreateRuntime(dacPath);
-
             return new AnalysisContext(dataTarget, runtime);
         }
     }
