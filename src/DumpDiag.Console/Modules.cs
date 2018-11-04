@@ -44,11 +44,31 @@ namespace DumpDiag.Console
 
 
             analysisSession.Reporter.Table("Non-shared runtime Modules",
-                analysisSession.Context.Runtime.Modules.
-                Where(m=>!runtimeModules.Contains(m)).
-                ToTable(
-                "Name", "Informational version",
-                module => module.Name, module => module.CreateMetadataReader().GetAssemblyAttributeStringValue("AssemblyInformationalVersionAttribute")));
+                analysisSession.Context.Runtime.Modules.Where(m => !runtimeModules.Contains(m)).ToTable(
+                    module =>
+                    {
+
+                        string version = string.Empty;
+                        string infoVersion = "";
+
+                        var reader = module.CreateMetadataReader();
+                        if (reader != null)
+                        {
+                            version = reader.GetAssemblyDefinition().Version.ToString();
+
+                            var infVersionValue = reader.GetAssemblyAttributeStringValue("AssemblyInformationalVersionAttribute");
+                            if (!infVersionValue.FixedArguments.IsDefaultOrEmpty)
+                            {
+                                infoVersion = infVersionValue.FixedArguments[0].Value.ToString();
+                            }
+                        }
+                        return new[]
+                        {
+                            module.Name ?? "<empty>",
+                            version,
+                            infoVersion
+                        };
+                    }, "Name", "Version", "Informational version"));
 
         }
     }

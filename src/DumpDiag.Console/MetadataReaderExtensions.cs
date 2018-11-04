@@ -22,7 +22,7 @@ namespace DumpDiag.Console
             return MetadataReaderProvider.FromMetadataImage(ImmutableArray.Create(d, 0, read)).GetMetadataReader();
         }
 
-        public static string GetAssemblyAttributeStringValue(this MetadataReader reader, string name)
+        public static CustomAttributeValue<string> GetAssemblyAttributeStringValue(this MetadataReader reader, string name)
         {
             if (reader != null)
             {
@@ -47,12 +47,10 @@ namespace DumpDiag.Console
                     {
                         continue;
                     }
-                    var s = ca.DecodeValue(new ValueProvider());
-                    var fixedArgument = s.FixedArguments[0];
-                    return fixedArgument.Value.ToString();
+                    return ca.DecodeValue(new ValueProvider());
                 }
             }
-            return string.Empty;
+            return default(CustomAttributeValue<string>);
         }
 
 
