@@ -15,7 +15,7 @@
                     new [] {nameof(pool.FreeCompletionPortCount), pool.FreeCompletionPortCount.ToString() }
                 });
 
-            analysisSession.Reporter.Table("ThreadPool status",
+            analysisSession.Reporter.Table("ThreadPool limits",
                 new[]
                 {
                     new [] { nameof(pool.MinThreads), pool.MinThreads.ToString() },

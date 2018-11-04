@@ -15,7 +15,7 @@ namespace DumpDiag.Console
         }
 
         public static IEnumerable<IEnumerable<string>> ToTable<T, T1, T2>(
-            this IList<T> list,
+            this IEnumerable<T> list,
             string column1,
             string column2,
             Func<T, T1> selector1,
