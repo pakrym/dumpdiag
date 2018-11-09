@@ -1,0 +1,22 @@
+@model DumpDiag.Console.Models.HeapStatistics
+
+<p>Total unique objects: @Model.TotalUniqueObjects</p>
+<table>
+    <thead>
+        <tr>
+            <th>Type Name</th>
+            <th>Count</th>
+            <th>Total Size (bytes)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var type in Model.Types)
+        {
+            <tr>
+                <td><a command-name="ListInstances" command-route-typeName="@type.TypeName">@type.TypeName</a></td>
+                <td>@type.Count</td>
+                <td>@type.TotalSize</td>
+            </tr>
+        }
+    </tbody>
+</table>
