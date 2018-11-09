@@ -1,10 +1,23 @@
-﻿@page
+@page
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <button id="heap-stats-button" command-name="HeapStats">Heap</button>
 </div>
+
+<div id="block-host">
+
+</div>
+
+<template id="t-block">
+    <div class="block" data-removable>
+        <div class="block-header">
+            <div class="float-right"><a href="#" data-action="remove">Remove</a></div>
+        </div>
+        <div class="block-body">
+        </div>
+    </div>
+</template>

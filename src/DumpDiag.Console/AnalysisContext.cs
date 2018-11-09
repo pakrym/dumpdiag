@@ -1,9 +1,11 @@
-﻿using Microsoft.Diagnostics.Runtime;
+using Microsoft.Diagnostics.Runtime;
 
 namespace DumpDiag.Console
 {
     public class AnalysisContext
     {
+        public static readonly AnalysisContext Empty = new AnalysisContext(null, null);
+
         public DataTarget DataTarget { get; }
 
         public ClrRuntime Runtime { get; }
