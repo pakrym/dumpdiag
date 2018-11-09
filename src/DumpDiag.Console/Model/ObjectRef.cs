@@ -14,4 +14,11 @@
             return $"{Address:X}";
         }
     }
+
+    public class TypeReference
+    {
+        public TypeReference(string name)
+        {
+        }
+    }
 }
