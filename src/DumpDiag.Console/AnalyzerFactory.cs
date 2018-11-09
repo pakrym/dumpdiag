@@ -30,7 +30,7 @@ namespace DumpDiag.Console
         {
             foreach (var analyzer in _analyzers)
             {
-                if (analyzer.Name.Contains(name))
+                if (analyzer.Name.Contains(name, StringComparison.InvariantCultureIgnoreCase))
                 {
                     return (IDumpAnalyzer)Activator.CreateInstance(analyzer);
                 }

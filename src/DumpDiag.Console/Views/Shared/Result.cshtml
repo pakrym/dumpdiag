@@ -5,5 +5,5 @@
 
 @foreach (var result in Model)
 {
-    @Html.DisplayForModel(result)
+    @Html.DisplayFor(m=>result, result.GetType().Name)
 }

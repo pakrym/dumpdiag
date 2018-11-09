@@ -16,9 +16,9 @@ namespace DumpDiag.Console.Pages
             _analyzerFactory = analyzerFactory;
         }
 
-        public IActionResult Modules()
+        public IActionResult Index(string name)
         {
-            var analyzer = _analyzerFactory.CreateAnalyzer(nameof(Modules));
+            var analyzer = _analyzerFactory.CreateAnalyzer(name);
             var reporter = new AggregateReporter();
             var session = new AnalysisSession(_context, reporter);
             analyzer.Run(session);
@@ -42,6 +42,11 @@ namespace DumpDiag.Console.Pages
                 Name =  name,
                 Data = table
             });
+        }
+
+        public void Write(object o)
+        {
+            Results.Add(o);
         }
     }
 }

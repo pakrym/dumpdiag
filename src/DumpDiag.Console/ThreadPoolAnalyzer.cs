@@ -1,5 +1,33 @@
 ﻿namespace DumpDiag.Console
 {
+    internal class InitAnalyzer : IDumpAnalyzer
+    {
+        public void Run(AnalysisSession analysisSession)
+        {
+            analysisSession.Reporter.Write(new FormattedString("Welcome. Try executing ", new CommandRef("modules"), " or ", new CommandRef("threadpool"), " command"));
+        }
+    }
+
+    public class FormattedString
+    {
+        public object[] Objects { get; }
+
+        public FormattedString(params object[] objects)
+        {
+            Objects = objects;
+        }
+    }
+
+    public class CommandRef
+    {
+        public string Name { get; }
+
+        public CommandRef(string name)
+        {
+            Name = name;
+        }
+    }
+
     internal class ThreadPoolAnalyzer : IDumpAnalyzer
     {
         public void Run(AnalysisSession analysisSession)

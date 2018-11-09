@@ -46,5 +46,9 @@ namespace DumpDiag.Console
                 System.Console.WriteLine();
             }
         }
+
+        public void Write(object o)
+        {
+        }
     }
 }

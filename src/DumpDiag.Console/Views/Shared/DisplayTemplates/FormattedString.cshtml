@@ -1,0 +1,9 @@
+﻿@model DumpDiag.Console.FormattedString
+@{
+    Layout = null;
+}
+
+@foreach (var part in Model.Objects)
+{
+    @Html.DisplayFor(m=>part, part.GetType().Name)
+}
