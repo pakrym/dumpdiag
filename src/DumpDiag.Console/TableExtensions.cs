@@ -3,12 +3,6 @@ using System.Collections.Generic;
 
 namespace DumpDiag.Console
 {
-    public class Table
-    {
-        public IEnumerable<IEnumerable<string>> Data { get; set; }
-        public string Name { get; set; }
-    }
-
     public static class TableExtensions
     {
         public static IEnumerable<IEnumerable<string>> ToTable<T, T1>(this IDictionary<T, T1> dictionary, string keyColumn, string valueColumn)

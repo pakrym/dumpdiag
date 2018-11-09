@@ -5,12 +5,20 @@ namespace DumpDiag.Console
 {
     internal class ConsoleAnalysisReporter : IAnalysisReporter
     {
-        public void Info(string message)
+        public void Write(object o)
         {
-            System.Console.WriteLine(message);
+            switch (o)
+            {
+                case Table t:
+                    PrintTable(t.Name, t.Data);
+                    break;
+                default:
+                    System.Console.WriteLine(o.ToString());
+                    return;
+            }
         }
 
-        public void Table(string name, IEnumerable<IEnumerable<string>> table)
+        private void PrintTable(string name, IEnumerable<IEnumerable<string>> table)
         {
             System.Console.WriteLine("--------------- " + name);
             var columnSizes = new List<int>();
@@ -45,10 +53,6 @@ namespace DumpDiag.Console
 
                 System.Console.WriteLine();
             }
-        }
-
-        public void Write(object o)
-        {
         }
     }
 }

@@ -8,5 +8,10 @@
         {
             Objects = objects;
         }
+
+        public override string ToString()
+        {
+            return string.Join("", Objects);
+        }
     }
 }

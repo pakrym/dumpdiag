@@ -6,7 +6,7 @@ using Microsoft.Diagnostics.Runtime;
 
 namespace DumpDiag.Console
 {
-    internal class Modules : IDumpAnalyzer
+    internal class ModulesAnalyzer : IDumpAnalyzer
     {
         public void Run(AnalysisSession analysisSession)
         {
@@ -40,10 +40,10 @@ namespace DumpDiag.Console
                 }
             }
 
-            analysisSession.Reporter.Table("Detected frameworks", frameworks.ToTable("Name", "Version"));
+            analysisSession.Reporter.Write(new Table("Detected frameworks", frameworks.ToTable("Name", "Version")));
 
 
-            analysisSession.Reporter.Table("Non-shared runtime Modules",
+            analysisSession.Reporter.Write(new Table("Non-shared runtime Modules",
                 analysisSession.Context.Runtime.Modules.Where(m => !runtimeModules.Contains(m)).ToTable(
                     module =>
                     {
@@ -68,8 +68,7 @@ namespace DumpDiag.Console
                             version,
                             infoVersion
                         };
-                    }, "Name", "Version", "Informational version"));
-
+                    }, "Name", "Version", "Informational version")));
         }
     }
 }
