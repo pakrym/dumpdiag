@@ -1,21 +1,27 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using Microsoft.Diagnostics.Runtime;
 
 namespace DumpDiag.Console
 {
+    internal class DumpObjAnalyzer : IDumpAnalyzer
+    {
+        public void Run(AnalysisSession analysisSession, string[] arguments)
+        {
+            var address = ulong.Parse(arguments[0], NumberStyles.HexNumber);
+            var type = analysisSession.Context.Runtime.Heap.GetObjectType(address);
+            analysisSession.Reporter.Write(new ClrObject(address, type).Describe());
+        }
+    }
+
     internal class DumpHeapAnalyzer : IDumpAnalyzer
     {
-        public void Run(AnalysisSession analysisSession)
+        public void Run(AnalysisSession analysisSession, string[] arguments)
         {
             foreach (var o in analysisSession.Context.Runtime.Heap.EnumerateObjects().Take(50))
             {
-                if (o.Type.IsString)
-                {
-                    analysisSession.Reporter.Write(new StringInstance((string)o.Type.GetValue(o.Address)));
-                }
-                else
-                {
-                    analysisSession.Reporter.Write(new ObjectInstance(o));
-                }
+                analysisSession.Reporter.Write(o.Describe());
             }
         }
     }

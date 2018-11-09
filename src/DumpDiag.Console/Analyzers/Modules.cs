@@ -8,7 +8,7 @@ namespace DumpDiag.Console
 {
     internal class ModulesAnalyzer : IDumpAnalyzer
     {
-        public void Run(AnalysisSession analysisSession)
+        public void Run(AnalysisSession analysisSession, string[] arguments)
         {
             var modules = analysisSession.Context.Runtime.Modules;
             var sharedRuntimePaths = new[] { "Microsoft.NetCore.App", "Microsoft.AspNetCore.App" };

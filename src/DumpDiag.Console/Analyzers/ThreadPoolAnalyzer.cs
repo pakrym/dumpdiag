@@ -2,7 +2,7 @@
 {
     internal class ThreadPoolAnalyzer : IDumpAnalyzer
     {
-        public void Run(AnalysisSession analysisSession)
+        public void Run(AnalysisSession analysisSession, string[] arguments)
         {
             var pool = analysisSession.Context.Runtime.ThreadPool;
             analysisSession.Reporter.Write(new Table("ThreadPool status",

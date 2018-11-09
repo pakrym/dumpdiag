@@ -15,12 +15,12 @@ namespace DumpDiag.Console.Pages
             _analyzerFactory = analyzerFactory;
         }
 
-        public IActionResult Index(string name)
+        public IActionResult Index(string name, string arguments)
         {
             var analyzer = _analyzerFactory.CreateAnalyzer(name);
             var reporter = new AggregateReporter();
             var session = new AnalysisSession(_context, reporter);
-            analyzer.Run(session);
+            analyzer.Run(session, (arguments ?? string.Empty).Split(" "));
             return View("Result", reporter.Results);
         }
     }

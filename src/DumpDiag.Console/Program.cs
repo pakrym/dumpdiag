@@ -55,7 +55,7 @@ namespace DumpDiag.Console
                 foreach (var analyzerName in Analyzers)
                 {
                     var analyzer = factory.CreateAnalyzer(analyzerName);
-                    analyzer.Run(analysisSession);
+                    analyzer.Run(analysisSession, new string[] {});
                 }
             }
         }
