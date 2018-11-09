@@ -1,6 +1,6 @@
 ﻿namespace DumpDiag.Console
 {
-    internal interface IDumpAnalyzer
+    public interface IDumpAnalyzer
     {
         void Run(AnalysisSession analysisSession);
     }

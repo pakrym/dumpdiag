@@ -1,0 +1,9 @@
+﻿@model IEnumerable<object>
+@{
+    Layout = null;
+}
+
+@foreach (var result in Model)
+{
+    @Html.DisplayForModel(result)
+}

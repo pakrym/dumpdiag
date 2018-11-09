@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DumpDiag.Console
 {
-    internal class AnalyzerFactory
+    public class AnalyzerFactory
     {
         private readonly List<Type> _analyzers = new List<Type>();
 

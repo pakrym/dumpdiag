@@ -10,11 +10,6 @@ namespace DumpDiag.Console
             System.Console.WriteLine(message);
         }
 
-        public void Progress(string progressMessage)
-        {
-            System.Console.WriteLine(progressMessage);
-        }
-
         public void Table(string name, IEnumerable<IEnumerable<string>> table)
         {
             System.Console.WriteLine("--------------- " + name);

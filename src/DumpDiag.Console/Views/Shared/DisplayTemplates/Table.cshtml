@@ -1,0 +1,20 @@
+﻿@model DumpDiag.Console.Table
+@{
+    Layout = null;
+}
+
+<h1>@Model.Name</h1>
+<table>
+
+    @foreach (IEnumerable<string> row in Model.Data)
+    {
+        <tr>
+            @foreach (string cell in row)
+            {
+                <td>
+                    @cell
+                </td>
+            }
+        </tr>
+    }
+</table>

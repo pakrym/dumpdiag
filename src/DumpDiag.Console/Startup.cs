@@ -28,7 +28,7 @@ namespace DumpDiag.Web
         {
             app.UseDeveloperExceptionPage();
             app.UseStaticFiles();
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }

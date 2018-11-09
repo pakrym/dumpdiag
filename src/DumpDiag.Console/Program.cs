@@ -7,6 +7,8 @@ using McMaster.Extensions.CommandLineUtils;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Diagnostics.Runtime.DacInterface;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace DumpDiag.Console
 {
@@ -30,22 +32,31 @@ namespace DumpDiag.Console
         private void OnExecute()
         {
             var context = AnalysisContext.FromProcessDump(ProcessDump, DAC);
-            var analysisSession = new AnalysisSession(context);
+
+            AnalyzerFactory factory = new AnalyzerFactory();
+
             if (Web)
             {
                 new WebHostBuilder()
                     .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
+                    .ConfigureServices(
+                        collection => {
+                            collection.AddSingleton<AnalyzerFactory>(factory);
+                            collection.AddSingleton<AnalysisContext>(context);
+                        })
                     .UseStartup<Startup>().Build().Run();
-
             }
-            System.Console.CancelKeyPress += (sender, args) => analysisSession.Stop();
-
-            AnalyzerFactory factory = new AnalyzerFactory();
-            foreach (var analyzerName in Analyzers)
+            else
             {
-                var analyzer = factory.CreateAnalyzer(analyzerName);
-                analyzer.Run(analysisSession);
+                var reporter = new ConsoleAnalysisReporter();
+                var analysisSession = new AnalysisSession(context, reporter);
+                System.Console.CancelKeyPress += (sender, args) => analysisSession.Stop();
+                foreach (var analyzerName in Analyzers)
+                {
+                    var analyzer = factory.CreateAnalyzer(analyzerName);
+                    analyzer.Run(analysisSession);
+                }
             }
         }
     }

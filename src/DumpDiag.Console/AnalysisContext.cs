@@ -2,7 +2,7 @@
 
 namespace DumpDiag.Console
 {
-    internal class AnalysisContext
+    public class AnalysisContext
     {
         public DataTarget DataTarget { get; }
 

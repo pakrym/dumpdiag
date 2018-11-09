@@ -2,16 +2,16 @@
 
 namespace DumpDiag.Console
 {
-    internal class AnalysisSession
+    public class AnalysisSession
     {
         public AnalysisContext Context { get; }
 
         private readonly CancellationTokenSource _cancellationTokenSource;
 
-        public AnalysisSession(AnalysisContext context)
+        public AnalysisSession(AnalysisContext context, IAnalysisReporter reporter)
         {
             Context = context;
-            Reporter = new ConsoleAnalysisReporter();
+            Reporter = reporter;
             _cancellationTokenSource = new CancellationTokenSource();
             CancellationToken = _cancellationTokenSource.Token;
         }
