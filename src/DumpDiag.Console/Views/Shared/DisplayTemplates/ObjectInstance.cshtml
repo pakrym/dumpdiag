@@ -1,0 +1,17 @@
+﻿@model DumpDiag.Console.ObjectInstance
+@{
+    Layout = null;
+}
+
+<table>
+    <tr>
+        <th colspan="2">@Model.TypeName</th>
+    </tr>
+    @foreach (var field in Model.Fields)
+    {
+        <tr>
+            <td>@field.Name</td>
+            <td>@Html.DisplayFor(model => field.Value, field.Value.GetType().Name)</td>
+        </tr>
+    }
+</table>
