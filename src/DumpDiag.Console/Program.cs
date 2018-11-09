@@ -1,6 +1,11 @@
-﻿using System.Reflection.PortableExecutable;
+﻿using System;
+using System.IO;
+using System.Reflection.PortableExecutable;
 using System.Text;
+using DumpDiag.Web;
 using McMaster.Extensions.CommandLineUtils;
+using Microsoft.AspNetCore;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Diagnostics.Runtime.DacInterface;
 
 namespace DumpDiag.Console
@@ -16,13 +21,24 @@ namespace DumpDiag.Console
         [Option]
         public string ProcessDump { get; set; }
 
+        [Option]
+        public  bool Web { get; set; }
+
         [Option(CommandOptionType.MultipleValue)]
-        public string[] Analyzers { get; set; }
+        public string[] Analyzers { get; set; } = Array.Empty<string>();
 
         private void OnExecute()
         {
             var context = AnalysisContext.FromProcessDump(ProcessDump, DAC);
             var analysisSession = new AnalysisSession(context);
+            if (Web)
+            {
+                new WebHostBuilder()
+                    .UseKestrel()
+                    .UseContentRoot(Directory.GetCurrentDirectory())
+                    .UseStartup<Startup>().Build().Run();
+
+            }
             System.Console.CancelKeyPress += (sender, args) => analysisSession.Stop();
 
             AnalyzerFactory factory = new AnalyzerFactory();
