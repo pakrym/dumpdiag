@@ -1,6 +1,6 @@
-﻿@model DumpDiag.Console.ObjectRef
+@model DumpDiag.Console.ObjectRef
 @{
     Layout = null;
 }
 
-<a href="/commands?name=DumpObj&arguments=@Model.Address.ToString("X")" data-command="DumpObj" data-arguments="@Model.Address.ToString("X")">[@Model.Address.ToString("X")]</a>
+<a command-name="DumpObj" command-args="@Model.Address.ToString("X")">[@Model.Address.ToString("X")]</a>

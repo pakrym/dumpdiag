@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using Microsoft.AspNetCore.Routing;
-using System;
 using System.Collections.Generic;
 
 namespace DumpDiag.Console
@@ -12,32 +10,15 @@ namespace DumpDiag.Console
     public class CommandTagHelper : TagHelper
     {
         public const string CommandAttributeName = "command-name";
-        public const string RouteValuesPrefix = "command-route-";
-        public const string RouteValuesDictionaryName = "command-all-route-data";
+        public const string ArgumentsAttributeName = "command-args";
 
         private readonly IUrlHelper _url;
-        private IDictionary<string, string> _routeValues;
 
         [HtmlAttributeName(CommandAttributeName)]
         public string Command { get; set; }
 
-        [HtmlAttributeName(RouteValuesDictionaryName, DictionaryAttributePrefix = RouteValuesPrefix)]
-        public IDictionary<string, string> RouteValues
-        {
-            get
-            {
-                if (_routeValues == null)
-                {
-                    _routeValues = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                }
-
-                return _routeValues;
-            }
-            set
-            {
-                _routeValues = value;
-            }
-        }
+        [HtmlAttributeName(ArgumentsAttributeName)]
+        public string Arguments { get; set; }
 
         public CommandTagHelper(IUrlHelperFactory urlFactory, IActionContextAccessor actionContextAccessor)
         {
@@ -46,8 +27,11 @@ namespace DumpDiag.Console
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            var routeValues = _routeValues == null ? null : new RouteValueDictionary(_routeValues);
-            var url = _url.Action(action: Command, controller: "Commands", routeValues);
+            var url = _url.Action(action: "Index", controller: "Commands", new
+            {
+                command = Command,
+                arguments = Arguments
+            });
 
             output.Attributes.SetAttribute("data-action", "command");
             if (context.TagName.Equals("a"))

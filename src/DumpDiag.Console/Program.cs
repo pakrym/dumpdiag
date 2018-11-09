@@ -1,9 +1,9 @@
 using DumpDiag.Web;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Diagnostics.Runtime.DacInterface;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
+using System.IO;
 
 namespace DumpDiag.Console
 {
@@ -31,7 +31,7 @@ namespace DumpDiag.Console
         {
             var context = AnalysisContext.FromProcessDump(ProcessDump, DAC);
 
-            AnalyzerFactory factory = new AnalyzerFactory();
+            var factory = new AnalyzerFactory();
 
             if (Web)
             {
@@ -39,7 +39,8 @@ namespace DumpDiag.Console
                     .UseKestrel()
                     .UseContentRoot(Directory.GetCurrentDirectory())
                     .ConfigureServices(
-                        collection => {
+                        collection =>
+                        {
                             collection.AddSingleton<AnalyzerFactory>(factory);
                             collection.AddSingleton<AnalysisContext>(context);
                         })

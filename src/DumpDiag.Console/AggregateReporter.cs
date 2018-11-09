@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 
-namespace DumpDiag.Console.Pages
+namespace DumpDiag.Console
 {
     internal class AggregateReporter: IAnalysisReporter
     {

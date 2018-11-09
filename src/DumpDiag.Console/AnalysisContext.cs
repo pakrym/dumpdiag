@@ -19,8 +19,11 @@ namespace DumpDiag.Console
         public static AnalysisContext FromProcessDump(string processDump, string dacPath)
         {
             var dataTarget = DataTarget.LoadCrashDump(processDump);
-            ClrInfo runtimeInfo = dataTarget.ClrVersions[0];  // just using the first runtime
-            ClrRuntime runtime = runtimeInfo.CreateRuntime(dacPath, true);
+            var runtimeInfo = dataTarget.ClrVersions[0];  // just using the first runtime
+
+            var runtime = string.IsNullOrEmpty(dacPath) ?
+                runtimeInfo.CreateRuntime() :
+                runtimeInfo.CreateRuntime(dacPath, true);
             return new AnalysisContext(dataTarget, runtime);
         }
     }

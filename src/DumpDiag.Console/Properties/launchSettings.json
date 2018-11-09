@@ -8,6 +8,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:58485/"
+    },
+    "Web (with Dump)": {
+      "commandName": "Project",
+      "commandLineArgs": "--web --process-dump C:\\Users\\anurse\\Desktop\\dotnet.DMP",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:58485/"
     }
   }
 }
