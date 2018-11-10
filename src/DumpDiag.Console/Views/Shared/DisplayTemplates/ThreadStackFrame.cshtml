@@ -1,0 +1,14 @@
+@model DumpDiag.Console.Models.ThreadStackFrame
+@{
+    Layout = null;
+}
+
+@if (Model.Method != null)
+{
+    @Html.DisplayFor(m => m.Method)
+}
+else
+{
+    @Html.DisplayFor(m => m.DisplayName)
+}
+

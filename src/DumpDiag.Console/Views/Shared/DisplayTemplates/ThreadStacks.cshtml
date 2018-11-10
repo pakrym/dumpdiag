@@ -1,0 +1,18 @@
+﻿@model DumpDiag.Console.Models.ThreadStacks
+@{
+    Layout = null;
+}
+
+<table>
+    <tr>
+        <th>
+            <strong>@Html.DisplayFor(m => m.ThreadId)</strong>
+        </th>
+    </tr>
+    @foreach (var field in Model.StackFrames)
+    {
+    <tr>
+        <td>@Html.DisplayFor(model => field)</td>
+    </tr>
+    }
+</table>

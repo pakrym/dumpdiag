@@ -4,9 +4,9 @@ using Microsoft.Diagnostics.Runtime;
 
 namespace DumpDiag.Console.Models
 {
-    public class ArrayInstance
+    public class ObjectArrayInstance
     {
-        public ArrayInstance(ClrObject clrObject)
+        public ObjectArrayInstance(ClrObject clrObject)
         {
             var objectRefs = clrObject.Type.GetArrayLength(clrObject.Address);
             var objects = new List<ObjectRef>();

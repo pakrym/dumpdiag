@@ -14,7 +14,7 @@ namespace DumpDiag.Console
 
             if (clrObject.IsArray)
             {
-                return new ArrayInstance(clrObject);
+                return new ObjectArrayInstance(clrObject);
             }
             return new ObjectInstance(clrObject);
         }
