@@ -1,4 +1,5 @@
 using System;
+using DumpDiag.Console.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DumpDiag.Console.Controllers
@@ -21,7 +22,7 @@ namespace DumpDiag.Console.Controllers
             var reporter = new AggregateReporter();
             var session = new AnalysisSession(_context, reporter);
             analyzer.Run(session, (arguments ?? string.Empty).Split(" "));
-            return View("Result", reporter.Results);
+            return View("Result", new Result(command +" " + arguments, reporter.Results));
         }
     }
 }

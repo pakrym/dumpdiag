@@ -1,9 +1,10 @@
-﻿@model IEnumerable<object>
+﻿@model DumpDiag.Console.Models.Result
 @{
     Layout = null;
 }
 
-@foreach (var result in Model)
+> @Model.Command <br/>
+@foreach (var result in Model.Results)
 {
     @Html.DisplayFor(m=>result, result.GetType().Name)
 }
