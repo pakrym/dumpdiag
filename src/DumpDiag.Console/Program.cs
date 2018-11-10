@@ -41,8 +41,8 @@ namespace DumpDiag.Console
                     .ConfigureServices(
                         collection =>
                         {
-                            collection.AddSingleton<AnalyzerFactory>(factory);
-                            collection.AddSingleton<AnalysisContext>(context);
+                            collection.AddSingleton(factory);
+                            collection.AddSingleton(context);
                         })
                     .UseStartup<Startup>().Build().Run();
             }

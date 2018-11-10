@@ -1,0 +1,18 @@
+﻿@model DumpDiag.Console.Models.ArrayInstance
+@{
+    Layout = null;
+}
+
+<table>
+    <tr>
+        <th>
+            <strong>@Html.DisplayFor(m => m.ItemType) [@Model.Objects.Length] @Html.DisplayFor(m => m.Address)</strong>
+        </th>
+    </tr>
+    @foreach (var field in Model.Objects)
+    {
+    <tr>
+        <td>@Html.DisplayFor(model => field, field.GetType().Name)</td>
+    </tr>
+    }
+</table>

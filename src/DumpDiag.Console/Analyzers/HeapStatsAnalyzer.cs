@@ -17,22 +17,13 @@ namespace DumpDiag.Console.Analyzers
                     var objs = g.ToList();
                     return new HeapTypeStatistics()
                     {
-                        TypeName = Truncate(g.Key),
+                        TypeName = new TypeRef(g.Key),
                         Count = objs.Count,
                         TotalSize = objs.Aggregate(0ul, (l, o) => l + o.Size)
                     };
                 }).OrderByDescending(t => t.TotalSize)
             };
             analysisSession.Reporter.Write(heapStats);
-        }
-
-        private string Truncate(string key)
-        {
-            if(key.Length > 50)
-            {
-                return key.Substring(0, 47) + "...";
-            }
-            return key;
         }
     }
 }

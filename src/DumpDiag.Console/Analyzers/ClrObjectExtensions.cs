@@ -1,4 +1,5 @@
-﻿using Microsoft.Diagnostics.Runtime;
+﻿using DumpDiag.Console.Models;
+using Microsoft.Diagnostics.Runtime;
 
 namespace DumpDiag.Console
 {
@@ -10,10 +11,12 @@ namespace DumpDiag.Console
             {
                 return new StringInstance((string)clrObject.Type.GetValue(clrObject.Address));
             }
-            else
+
+            if (clrObject.IsArray)
             {
-                return new ObjectInstance(clrObject);
+                return new ArrayInstance(clrObject);
             }
+            return new ObjectInstance(clrObject);
         }
     }
 }

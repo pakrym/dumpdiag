@@ -1,4 +1,4 @@
-﻿namespace DumpDiag.Console
+﻿namespace DumpDiag.Console.Models
 {
     public class NullValue
     {

@@ -1,11 +1,11 @@
-﻿@model DumpDiag.Console.ObjectInstance
+﻿@model DumpDiag.Console.Models.ObjectInstance
 @{
     Layout = null;
 }
 
 <table>
     <tr>
-        <th colspan="2">@Model.TypeName</th>
+        <th colspan="2">@Html.DisplayFor(model => model.Type) @Html.DisplayFor(model => model.Address)</th>
     </tr>
     @foreach (var field in Model.Fields)
     {

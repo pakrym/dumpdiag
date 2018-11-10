@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 let nextBlockId = 0;
 console.log("started");
 document.addEventListener("DOMContentLoaded", () => {
-    new Application().bind(document.body);
+    new Application().start();
 });
 class Application {
     constructor() {
@@ -21,6 +21,27 @@ class Application {
         if (!this.blockTemplate) {
             throw new Error("Failed to find block template element: '#t-block'");
         }
+    }
+    start() {
+        this.bind(document.body);
+        var commandInput = document.getElementById("command");
+        commandInput.addEventListener("keypress", (e) => __awaiter(this, void 0, void 0, function* () {
+            var parts = commandInput.value.split(" ", 2);
+            if (parts.length === 0) {
+                return;
+            }
+            var command = "";
+            var commandArguments = "";
+            if (parts.length > 0) {
+                command = parts[0];
+            }
+            if (parts.length > 1) {
+                commandArguments = parts[1];
+            }
+            if (e.keyCode === 13) {
+                yield this.runCommandUrl(`/Commands?command=${command}&arguments=${commandArguments}`);
+            }
+        }));
     }
     bind(root) {
         root.querySelectorAll("[data-action]").forEach((e) => {
@@ -59,6 +80,11 @@ class Application {
             if (!url) {
                 throw new Error("Element doesn't have an 'href' or 'data-href' attribute.");
             }
+            yield this.runCommandUrl(url);
+        });
+    }
+    runCommandUrl(url) {
+        return __awaiter(this, void 0, void 0, function* () {
             console.log(`Fetching ${url} ...`);
             let resp = yield fetch(url);
             console.log(`Received result from  ${url}.`);

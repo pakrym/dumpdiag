@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using DumpDiag.Console.Models;
 using Microsoft.Diagnostics.Runtime;
 
 namespace DumpDiag.Console

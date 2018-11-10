@@ -4,6 +4,6 @@ namespace DumpDiag.Console.Models
     {
         public int Count { get; set; }
         public ulong TotalSize { get; set; }
-        public string TypeName { get; set; }
+        public TypeRef TypeName { get; set; }
     }
 }

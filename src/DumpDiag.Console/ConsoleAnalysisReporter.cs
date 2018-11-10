@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using DumpDiag.Console.Models;
 
 namespace DumpDiag.Console
 {

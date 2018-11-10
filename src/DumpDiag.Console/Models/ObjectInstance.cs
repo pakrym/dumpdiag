@@ -1,13 +1,14 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Diagnostics.Runtime;
 
-namespace DumpDiag.Console
+namespace DumpDiag.Console.Models
 {
     public class ObjectInstance
     {
         public ObjectInstance(ClrObject clrObject)
         {
-            TypeName = clrObject.Type.Name;
+            Address= new ObjectRef(clrObject.Address);
+            Type = new TypeRef(clrObject.Type.Name);
             var fields = new List<ObjectField>();
             foreach (var clrInstanceField in clrObject.Type.Fields)
             {
@@ -31,8 +32,8 @@ namespace DumpDiag.Console
 
             Fields = fields.ToArray();
         }
-
+        public ObjectRef Address { get; }
         public ObjectField[] Fields { get; }
-        public string TypeName { get; }
+        public TypeRef Type { get; }
     }
 }

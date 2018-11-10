@@ -3,7 +3,7 @@ let nextBlockId = 0;
 console.log("started");
 
 document.addEventListener("DOMContentLoaded", () => {
-    new Application().bind(document.body);
+    new Application().start();
 });
 
 class Application {
@@ -20,6 +20,30 @@ class Application {
         if (!this.blockTemplate) {
             throw new Error("Failed to find block template element: '#t-block'");
         }
+    }
+
+    start() {
+        this.bind(document.body);
+
+        var commandInput = document.getElementById("command") as HTMLInputElement;
+        commandInput.addEventListener("keypress", async (e: KeyboardEvent) => {
+            var parts = commandInput.value.split(" ", 2);
+            if (parts.length === 0) {
+                return;
+            }
+            var command = "";
+            var commandArguments = "";
+            if (parts.length > 0) {
+                command = parts[0];
+            }
+            if (parts.length > 1) {
+                commandArguments = parts[1];
+            }
+
+            if (e.keyCode === 13) {
+                await this.runCommandUrl(`/Commands?command=${command}&arguments=${commandArguments}`);
+            }
+        });
     }
 
     bind(root: HTMLElement) {
@@ -63,7 +87,10 @@ class Application {
         if (!url) {
             throw new Error("Element doesn't have an 'href' or 'data-href' attribute.");
         }
+        await this.runCommandUrl(url);
+    }
 
+    async runCommandUrl(url: string) {
         console.log(`Fetching ${url} ...`);
         let resp = await fetch(url);
         console.log(`Received result from  ${url}.`);

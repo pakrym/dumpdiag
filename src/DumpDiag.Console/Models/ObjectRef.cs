@@ -1,4 +1,4 @@
-﻿namespace DumpDiag.Console
+﻿namespace DumpDiag.Console.Models
 {
     public class ObjectRef
     {
@@ -12,13 +12,6 @@
         public override string ToString()
         {
             return $"{Address:X}";
-        }
-    }
-
-    public class TypeReference
-    {
-        public TypeReference(string name)
-        {
         }
     }
 }

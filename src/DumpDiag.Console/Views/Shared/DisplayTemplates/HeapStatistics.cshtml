@@ -13,7 +13,7 @@
         @foreach (var type in Model.Types)
         {
             <tr>
-                <td style="max-width: 50em; text-overflow: ellipsis"><strong>@type.TypeName</strong></td>
+                <td style="max-width: 50em; text-overflow: ellipsis">@Html.DisplayFor(m=>type.TypeName)</td>
                 <td>@type.Count</td>
                 <td>@type.TotalSize</td>
             </tr>

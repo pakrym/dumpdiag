@@ -1,4 +1,6 @@
-﻿namespace DumpDiag.Console
+﻿using DumpDiag.Console.Models;
+
+namespace DumpDiag.Console
 {
     internal class ThreadPoolAnalyzer : IDumpAnalyzer
     {

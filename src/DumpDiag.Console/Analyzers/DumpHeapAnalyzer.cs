@@ -7,7 +7,13 @@ namespace DumpDiag.Console
     {
         public void Run(AnalysisSession analysisSession, string[] arguments)
         {
-            foreach (var o in analysisSession.Context.Runtime.Heap.EnumerateObjects().Take(50))
+            var clrObjects = analysisSession.Context.Runtime.Heap.EnumerateObjects();
+            var typeName = arguments.FirstOrDefault();
+            if (!string.IsNullOrEmpty(typeName))
+            {
+                clrObjects = clrObjects.Where(t => t.Type?.Name == typeName);
+            }
+            foreach (var o in clrObjects.Take(50))
             {
                 analysisSession.Reporter.Write(o.Describe());
             }

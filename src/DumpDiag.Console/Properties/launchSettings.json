@@ -17,6 +17,17 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "http://localhost:58485/"
+    },
+    "Web (with Pavels Dump)": {
+      "commandName": "Executable",
+      "executablePath": "c:\\Users\\pakrymet\\.dotnet\\x86\\dotnet.exe",
+      "commandLineArgs": " .\\bin\\Debug\\netcoreapp2.1\\DumpDiag.Console.dll --process-dump D:\\temp\\new_dumps\\leak\\dotnet.exe_181026_225814.dmp --dac d:\\temp\\new_dumps\\leak\\shared\\Microsoft.NETCore.App\\2.1.5\\mscordaccore.dll -a ThreadPool -a Modules --web",
+      "workingDirectory": "D:\\github\\dumpdiag\\src\\DumpDiag.Console",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "http://localhost:58485/"
     }
   }
 }

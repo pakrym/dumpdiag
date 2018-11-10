@@ -21,7 +21,7 @@ namespace DumpDiag.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddLogging(builder => builder.AddConsole().SetMinimumLevel(LogLevel.Trace));
+            services.AddLogging(builder => builder.AddConsole());
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
 
             // Needed for the tag helper right now :S

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace DumpDiag.Console
+namespace DumpDiag.Console.Models
 {
     public class Table
     {

@@ -1,3 +1,5 @@
+using DumpDiag.Console.Models;
+
 namespace DumpDiag.Console
 {
     internal class InitAnalyzer : IDumpAnalyzer
